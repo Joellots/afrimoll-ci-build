@@ -1,0 +1,22 @@
+# The build context passed to docker build is .docker-context/
+# which is assembled by the pipeline to contain only:
+#   dist/
+#   nginx.conf
+#
+# This .dockerignore is a safety net in case anything extra
+# leaks into that directory.
+
+*.md
+*.log
+*.env
+.env*
+.git
+node_modules
+src
+public
+supabase
+tsconfig*
+vite.config*
+playwright*
+package*.json
+bun.lock
