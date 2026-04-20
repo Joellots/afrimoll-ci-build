@@ -1,0 +1,26 @@
+server {
+    listen 80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Disable nginx version in headers
+    server_tokens off;
+
+    # Gzip static assets
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 1024;
+
+    # Long-lived cache for hashed Vite assets (js, css, fonts, images)
+    location ~* \.(?:js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|ico|webp)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # All other routes fall back to index.html for SPA (React Router)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
